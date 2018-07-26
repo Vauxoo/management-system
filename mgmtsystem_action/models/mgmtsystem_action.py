@@ -143,15 +143,12 @@ class MgmtsystemAction(models.Model):
                     )
                 vals['cancel_date'] = None
                 self.message_post(
-                    body=' %s ' % (_('Action back to draft stage on ') +
-                                   fields.Datetime.now())
-                )
+                    body=_('Action back to draft stage on %s') %
+                    fields.Datetime.now())
             if vals['stage_id'] == stage_open.id:
                 vals['opening_date'] = fields.Datetime.now()
                 self.message_post(
-                    body=' %s ' % (_('Action opened on ') +
-                                   vals['opening_date'])
-                )
+                    body=_('Action opened on %s') % vals['opening_date'])
                 vals['date_closed'] = None
                 vals['cancel_date'] = None
             if vals['stage_id'] == stage_close.id:
@@ -161,17 +158,13 @@ class MgmtsystemAction(models.Model):
                     )
                 vals['date_closed'] = fields.Datetime.now()
                 self.message_post(
-                    body=' %s ' % (_('Action closed on ') +
-                                   vals['date_closed'])
-                )
+                    body=_('Action closed on %s') % vals['date_closed'])
             if vals['stage_id'] == stage_cancel.id:
                 vals['date_closed'] = None
                 vals['opening_date'] = None
                 vals['cancel_date'] = fields.Datetime.now()
                 self.message_post(
-                    body=' %s ' % (_('Action cancelled on ') +
-                                   fields.Datetime.now())
-                )
+                    body=_('Action cancelled on %s') % fields.Datetime.now())
         return super(MgmtsystemAction, self).write(vals)
 
     @api.model
@@ -183,7 +176,7 @@ class MgmtsystemAction(models.Model):
 
     def get_action_url(self):
         """Return action url to be used in email templates."""
-        base_url = self.env['ir.config_parameter'].get_param(
+        base_url = self.env['ir.config_parameter'].sudo().get_param(
             'web.base.url',
             default='http://localhost:8069'
         )

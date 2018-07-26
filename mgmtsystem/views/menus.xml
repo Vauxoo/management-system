@@ -4,6 +4,7 @@
       id="menu_mgmtsystem_root"
       name="Management System"
       sequence="150"
+      web_icon="mgmtsystem,static/description/icon.png"
       groups="mgmtsystem.group_mgmtsystem_manager,group_mgmtsystem_viewer"
       />
 
